@@ -304,11 +304,12 @@ section {
 .header__mobile {
     position: relative;
     width: 60px;
+    max-width: 32rem;
     height: 60px;
-    background: var(--background-header);
+    background: rgba(18, 0, 28, 0);
     border-radius: 60px;
-    transition: var(--a-s);
-    transition-delay: var(--a-s);
+    transition: 1s;
+    transition-delay: 0.5s;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -362,7 +363,7 @@ section {
     position: absolute;
     width: 60px;
     height: 60px;
-    background: var(--background-header);
+    background: rgba(18, 0, 28, 0.6);
     border-radius: 50%;
     transition: var(--a-s);
     transition-delay: var(--a-s);
@@ -373,7 +374,7 @@ section {
     -webkit-box-shadow: 0px 17px 50px 0px rgba(106, 35, 138, 0.1);
     -moz-box-shadow: 0px 17px 50px 0px rgba(106, 35, 138, 0.1);
     box-shadow: 0 17px 50px #6a238a1a;
-    border: 2px solid var(--primary-text);
+    border: 1px solid var(--primary-text);
 }
 
 .header__mobile .header__mobile__toggle:before {
@@ -402,9 +403,11 @@ section {
 
 .header__mobile.active {
     width: 98svw;
+    max-width: 32rem;
     -webkit-box-shadow: 0px 17px 50px 0px rgba(106, 35, 138, 0.25);
     -moz-box-shadow: 0px 17px 50px 0px rgba(106, 35, 138, 0.25);
     box-shadow: 0 17px 50px #6a238a40;
+    background: rgb(18, 0, 28);
 }
 
 .header__mobile.active .header__mobile__items {
