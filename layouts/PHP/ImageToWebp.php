@@ -62,7 +62,7 @@ if (isset($_FILES['images'])) {
                 continue;
         }
 
-        imagewebp($sourceImage, $webpFilePath, 80);
+        imagewebp($sourceImage, $webpFilePath, 90);
 
         imagedestroy($sourceImage);
     }
