@@ -1,19 +1,37 @@
 <?php
 
-$tmpDir = "../../tmp/";
-$logs_folder = "../../logs/";
-
-
-if (!is_dir($logs_folder)) {
-    if (!mkdir($logs_folder, 0777, true)) {
-        $mensaje = "\n$fecha_hora [ERROR] No se pudo crear el directorio de logs.";
-        file_put_contents($log_day_folder . "log_$fecha_hora_file.log", $mensaje, FILE_APPEND);
-        echo $mensaje;
-        exit;
-    }
-}
+$tmpDir = __DIR__ . "\\..\\..\\tmp\\";
+$logs_folder = __DIR__ . "\\..\\..\\logs\\";
 
 date_default_timezone_set('America/Santiago');
+
+function crearDirectorioSiNoExiste($directorio) {
+    if (!is_dir($directorio)) {
+        if (!mkdir($directorio, 0777, true)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function escribirLog($mensaje) {
+    $fecha_hora_file = date('d-m-Y');
+    $fecha_hora = date('d-m-Y H:i:s');
+    global $logs_folder;
+    $logs_day_folder = $logs_folder . $fecha_hora_file . "/";
+    
+    $mensaje = "\n$fecha_hora $mensaje";
+    file_put_contents($logs_day_folder . "log_$fecha_hora_file.log", $mensaje, FILE_APPEND);
+    echo $mensaje;
+}
+
+escribirLog("[DEBUG] tmp folder: $tmpDir");
+escribirLog("[DEBUG] logs folder: $logs_folder");
+
+if (!crearDirectorioSiNoExiste($logs_folder)) {
+    escribirLog("[ERROR] No se pudo crear el directorio de logs.");
+    exit;
+}
 
 function limpiarArchivosTemporales($dir) {
     $totalArchivos = 0;
@@ -42,31 +60,21 @@ function limpiarArchivosTemporales($dir) {
 }
 
 while (true) {
-    $fecha_hora = date('d-m-Y H:i:s');
     $fecha_hora_file = date('d-m-Y');
+    $logs_day_folder = $logs_folder . $fecha_hora_file . "/";
 
-    $log_day_folder = $logs_folder . date('d-m-Y') . "/";
-
-    if (!is_dir($log_day_folder)) {
-        if (!mkdir($log_day_folder, 0777, true)) {
-            $mensaje = "\n$fecha_hora [ERROR] No se pudo crear el directorio de logs.";
-            file_put_contents($log_day_folder . "log_$fecha_hora_file.log", $mensaje, FILE_APPEND);
-            echo $mensaje;
-            exit;
-        }
+    if (!crearDirectorioSiNoExiste($logs_day_folder)) {
+        escribirLog("[ERROR] No se pudo crear el directorio de los logs del día.");
+        exit;
     }
 
     list($archivosEliminados, $carpetasEliminadas) = limpiarArchivosTemporales($tmpDir);
 
     if ($archivosEliminados == 0 && $carpetasEliminadas == 0) {
-        $mensaje = "\n$fecha_hora [INFO] No hay elementos que limpiar en la carpeta temporal.";
+        escribirLog("[INFO] No hay elementos que limpiar en la carpeta temporal.");
     } else {
-        $mensaje = "\n$fecha_hora [INFO] Se han eliminado $archivosEliminados archivos y $carpetasEliminadas carpetas de la carpeta temporal.";
+        escribirLog("[INFO] Se han eliminado $archivosEliminados archivos y $carpetasEliminadas carpetas de la carpeta temporal.");
     }
-
-    file_put_contents($log_day_folder . "log_$fecha_hora_file.log", $mensaje, FILE_APPEND);
-
-    echo $mensaje;
 
     sleep(300);
 }
