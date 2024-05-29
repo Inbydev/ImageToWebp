@@ -1,8 +1,5 @@
 # Convert Images to Webp Format
 
-![Captura de pantalla 2024-03-22 183756](https://inby.dev/ImageToWebp/images/screenshot.webp)
-
-
 ## About the project
 
 ImageToWebp is a website primarily built with PHP that allows users to convert Images to Webp format easily. Very soon compression config and others features! Check the features of the future by checking out the 'Projects' section on this GitHub repository.
