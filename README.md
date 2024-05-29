@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align="center">
   
 # ImageToWebp
@@ -81,4 +80,3 @@ is licensed under
 <a href="http://creativecommons.org/licenses/by/4.0/?ref=chooser-v1" target="_blank" style="display:inline-block;">CC BY 4.0
 </a>
 </h3>
->>>>>>> 9561775d21f27940104aa89c99a0c9b54553d6f1
